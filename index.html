@@ -296,10 +296,9 @@
       <div class="section-title">Updates</div>
       <div class="updates-grid">
         <div class="update-card">
- <div class="update-date">18 May 2026</div>
-<div class="update-title">Season Kicks Off 18th May 2026</div>
-<div class="update-body">The Summer League 2026 gets underway on 18th May with 13 teams split across League A and League B. Fixtures will be published shortly — watch this space!</div>
->
+          <div class="update-date">18 May 2026</div>
+          <div class="update-title">Season Kicks Off 18th May 2026</div>
+          <div class="update-body">The Summer League 2026 gets underway on 18th May with 13 teams split across League A and League B. Fixtures are now published — good luck to all teams!</div>
         </div>
       </div>
     </section>
@@ -315,6 +314,7 @@
           <div class="league-label">League A</div>
           <div class="embed-wrapper">
             <iframe
+              id="tableA"
               src="https://script.google.com/macros/s/AKfycbw0aeQT3k6d6L3gkX-X4-TrJOu-WtTMDM39Q3Uhkz6R7RmziSjzAw0udMl-9Rq8xHU2MQ/exec"
               height="340"
               scrolling="no"
@@ -325,6 +325,7 @@
           <div class="league-label">League B</div>
           <div class="embed-wrapper">
             <iframe
+              id="tableB"
               src="https://script.google.com/macros/s/AKfycbyfWPrNI06UTeooHhguMh1CmIDg56ANAyd-_vQm1tJVV8paGBjavVp7j5Wgn5Jt3j9VXw/exec"
               height="380"
               scrolling="no"
@@ -345,6 +346,7 @@
           <div class="league-label">League A</div>
           <div class="embed-wrapper">
             <iframe
+              id="fixturesA"
               src="https://script.google.com/macros/s/AKfycbzsVHb1KQwwJNQpEJgoZjB_Vb-uKBP01iLEDELdUhPz_wYOxgV4u_nYXjdCZpVjdvU/exec"
               height="600"
               scrolling="no"
@@ -355,6 +357,7 @@
           <div class="league-label">League B</div>
           <div class="embed-wrapper">
             <iframe
+              id="fixturesB"
               src="https://script.google.com/macros/s/AKfycbzHh0VGEN-Sb0FwXNtB-mGg5qoCGpcZ2gaOIKJsiASezo5-oznw_5ibMBFs6HZOJn3WUA/exec"
               height="600"
               scrolling="no"
@@ -372,6 +375,7 @@
       <div class="section-title">Teams &amp; Contacts</div>
       <div class="embed-wrapper">
         <iframe
+          id="teams-iframe"
           src="https://script.google.com/macros/s/AKfycbxiWRglmXCgscEpriPYEMrEcJ4-VAgpAkVNdD3Iphj5JXa-pwkOVYLUykNO1FYEhYBGBQ/exec"
           height="900"
           scrolling="no"
@@ -392,6 +396,19 @@
       document.getElementById('mobileMenu').classList.remove('open');
     }
 
+    // Auto-resize iframes based on content height
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.frameHeight) {
+        var iframes = document.querySelectorAll('iframe');
+        iframes.forEach(function(iframe) {
+          if (iframe.contentWindow === e.source) {
+            iframe.style.height = e.data.frameHeight + 'px';
+          }
+        });
+      }
+    });
+
+    // Active nav highlight on scroll
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links a');
 
